@@ -1,7 +1,6 @@
 const express = require("express");
 const nodemailer = require("nodemailer");
 const dotenv = require("dotenv");
-
 dotenv.config();
 
 const router = express.Router();
@@ -17,6 +16,7 @@ const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
   port: 587,
   secure: false,
+  
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
@@ -35,6 +35,7 @@ router.post("/generate", async (req, res) => {
   }
 
   const otp = generateOTP();
+  console.log(process.env.EMAIL_USER);
   console.log(otp);
   const expiresAt = Date.now() + 5 * 60 * 1000; // OTP expires in 5 minutes
   otpStorage.set(email, { otp, expiresAt });
