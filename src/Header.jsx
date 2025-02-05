@@ -7,7 +7,7 @@ import { faUser } from '@fortawesome/free-regular-svg-icons';
 
 function Header() {
     return (
-        <nav className="navbar navbar-expand-lg navbar-dark" style={{ backgroundColor: '#e82c74', minHeight: "100px" }}>
+        <nav className="navbar navbar-expand-lg navbar-dark" style={{ backgroundColor: '#e82c74', height: "75px" }}>
             <div className="container-fluid">
                 {/* Brand */}
                 <Link className="navbar-brand fs-4" to="/"><h1>Event Planner</h1></Link>
@@ -29,13 +29,13 @@ function Header() {
                 <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
                     <ul className="navbar-nav">
                         <li className="nav-item ms-3">
-                            <Link className="nav-link fs-4" to="/">Home</Link> {/* Increased size to fs-4 */}
+                            <Link className="nav-link fs-5" to="/">Home</Link> {/* Increased size to fs-4 */}
                         </li>
                         <li className="nav-item ms-3">
-                            <Link className="nav-link fs-4" to="/venues">Venues</Link> {/* Increased size to fs-4 */}
+                            <Link className="nav-link fs-5" to="/venues">Venues</Link> {/* Increased size to fs-4 */}
                         </li>
                         <li className="nav-item ms-3">
-                            <Link className="nav-link fs-4" to="/vendors">Vendors</Link> {/* Increased size to fs-4 */}
+                            <Link className="nav-link fs-5" to="/vendors">Vendors</Link> {/* Increased size to fs-4 */}
                         </li>
                         <li className="nav-item ms-3"> {/* Added extra gap after vendors */}
                             &nbsp;

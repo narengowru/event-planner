@@ -68,79 +68,81 @@ const Register = () => {
     };
 
     return (
-        <div className="register-container">
-            <div className="left-side">
-                <h2>Sign Up</h2>
-                <br />
-                {isRegistered && <p className="success-message">Registration successful!</p>}
-                <form onSubmit={handleSubmit}>
-                    <div className="form-group">
-                        <input
-                            type="email"
-                            placeholder="Enter email address"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            required
-                            className="input-field"
-                        />
-                    </div>
-
-                    {/* OTP Section */}
-                    {!isOtpSent && (
-                        <div className="form-group">
-                            <button type="button" className="submit-button" onClick={sendOtp}>
-                                Send OTP
-                            </button>
-                        </div>
-                    )}
-
-                    {isOtpSent && !isOtpVerified && (
+        <div className="container-wrapper">
+            <div className="register-container">
+                <div className="left-side">
+                    <h2>Sign Up</h2>
+                    <br />
+                    {isRegistered && <p className="success-message">Registration successful!</p>}
+                    <form onSubmit={handleSubmit}>
                         <div className="form-group">
                             <input
-                                type="text"
-                                placeholder="Enter OTP"
-                                value={otp}
-                                onChange={(e) => setOtp(e.target.value)}
-                                required
-                                className="input-field"
-                            />
-                            <button type="button" className="submit-button" onClick={verifyOtp}>
-                                Verify OTP
-                            </button>
-                        </div>
-                    )}
-
-                    {/* Only allow registration if OTP is verified */}
-                    {isOtpVerified && (
-                        <div className="form-group">
-                            <input
-                                type="password"
-                                placeholder="Enter password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
+                                type="email"
+                                placeholder="Enter email address"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
                                 required
                                 className="input-field"
                             />
                         </div>
-                    )}
 
-                    {isOtpVerified && (
-                        <button type="submit" className="submit-button">
-                            Complete Registration
-                        </button>
-                    )}
-                </form>
+                        {/* OTP Section */}
+                        {!isOtpSent && (
+                            <div className="form-group">
+                                <button type="button" className="submit-button" onClick={sendOtp}>
+                                    Send OTP
+                                </button>
+                            </div>
+                        )}
 
-                {message && <p className="message">{message}</p>}
+                        {isOtpSent && !isOtpVerified && (
+                            <div className="form-group">
+                                <input
+                                    type="text"
+                                    placeholder="Enter OTP"
+                                    value={otp}
+                                    onChange={(e) => setOtp(e.target.value)}
+                                    required
+                                    className="input-field"
+                                />
+                                <button type="button" className="submit-button" onClick={verifyOtp}>
+                                    Verify OTP
+                                </button>
+                            </div>
+                        )}
 
-                <br />
-                <p>
-                    Already have an account? <Link to="/login">Login</Link>
-                </p>
-            </div>
+                        {/* Only allow registration if OTP is verified */}
+                        {isOtpVerified && (
+                            <div className="form-group">
+                                <input
+                                    type="password"
+                                    placeholder="Enter password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    required
+                                    className="input-field"
+                                />
+                            </div>
+                        )}
 
-            <div className="right-side">
-                <img src="https://i.ibb.co/LCvDyFr/wedding-couple.png" alt="Landscape" className="landscape-image" />
+                        {isOtpVerified && (
+                            <button type="submit" className="submit-button">
+                                Complete Registration
+                            </button>
+                        )}
+                    </form>
+
+                    {message && <p className="message">{message}</p>}
+
+                    <br />
+                    <p>
+                        Already have an account? <Link to="/login">Login</Link>
+                    </p>
+                </div>
+
+                <div className="right-side">
+                    <img src="https://i.ibb.co/LCvDyFr/wedding-couple.png" alt="Landscape" className="landscape-image" />
+                </div>
             </div>
         </div>
     );
