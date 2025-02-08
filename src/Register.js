@@ -15,7 +15,7 @@ const Register = () => {
     // Step 1: Send OTP to the email
     const sendOtp = async () => {
         try {
-            const response = await axios.post('http://localhost:5000/api/otp/generate', { email });
+            const response = await axios.post('https://event-planner-pn3l.onrender.com/api/otp/generate', { email });
             if (response.data.success) {
                 setIsOtpSent(true);
                 setMessage('OTP sent to your email address.');
