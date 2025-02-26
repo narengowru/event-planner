@@ -12,7 +12,7 @@ const generateOrderId = () => {
 // POST route to create a new order
 router.post('/addOrder', async (req, res) => {
   try {
-    const { customer_email, vendor_email, item_name, item_price, item_image_url } = req.body;
+    const { customer_email, vendor_email, item_name, item_price, item_image_url, eventDetails } = req.body;
 
     const newOrder = new Order({
       order_id: generateOrderId(), // Generate unique order ID
@@ -22,6 +22,7 @@ router.post('/addOrder', async (req, res) => {
       item_price,
       item_image_url,
       accepted: false, // Initialize as not accepted (false)
+      eventDetails, // Store event details in the order
     });
 
     await newOrder.save();
@@ -37,6 +38,7 @@ router.post('/addOrder', async (req, res) => {
     });
   }
 });
+
 
 // GET route to fetch all orders
 router.get('/fetchOrders', async (req, res) => {

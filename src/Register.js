@@ -59,7 +59,7 @@ const Register = () => {
                 phoneNumber: "", // Default value for phoneNumber
                 orderHistory: [] // Default value for orderHistory
             });
-            setMessage(response.data.message);
+            setMessage(response.data.messaage);
             setIsRegistered(true);
         } catch (error) {
             setMessage(error.response?.data?.message || 'An error occurred');

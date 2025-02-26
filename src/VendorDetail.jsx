@@ -6,10 +6,15 @@ const VendorDetail = () => {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem('user')); // Get user from localStorage
   const { category, id } = useParams(); // Get both category and id from URL params
-  console.log(category);
-  console.log(id);
   const [vendor, setVendor] = useState(null); // State to hold the vendor data
   const [loading, setLoading] = useState(true); // State to manage loading
+  const [showModal, setShowModal] = useState(false); // State to manage modal visibility
+  const [eventDetails, setEventDetails] = useState({
+    eventDate: '',
+    eventTime: '',
+    eventLocation: '',
+    specialInstructions: '',
+  });
 
   useEffect(() => {
     // Function to fetch data from MongoDB
@@ -37,20 +42,23 @@ const VendorDetail = () => {
     fetchData();
   }, [category, id]);
 
-  if (loading) {
-    return <h2>Loading...</h2>; // Display loading message while fetching
-  }
-
-  if (!vendor) {
-    return <h2>Vendor Not Found</h2>; // Display a message if vendor is not found
-  }
-
-  const handleBookNow = async () => {
+  const handleBookNow = () => {
     if (!user) {
       navigate('/login'); // Redirect to login if user is not authenticated
       return;
     }
+    setShowModal(true); // Show the modal
+  };
 
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setEventDetails({
+      ...eventDetails,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = async () => {
     const orderDetails = {
       customer_email: user.email,
       vendor_email: vendor.vendor_email || 'vendor@gmail.com', // Fallback email
@@ -58,6 +66,7 @@ const VendorDetail = () => {
       item_price: vendor.price,
       item_image_url: vendor.image_url,
       accepted: false,
+      eventDetails, // Include event details in the order
     };
 
     try {
@@ -94,8 +103,18 @@ const VendorDetail = () => {
       }
     } catch (error) {
       console.error('Error:', error);
+    } finally {
+      setShowModal(false); // Close the modal after submission
     }
   };
+
+  if (loading) {
+    return <h2>Loading...</h2>; // Display loading message while fetching
+  }
+
+  if (!vendor) {
+    return <h2>Vendor Not Found</h2>; // Display a message if vendor is not found
+  }
 
   return (
     <div className="vendor-detail-container">
@@ -120,6 +139,62 @@ const VendorDetail = () => {
           <button className="book-button" onClick={handleBookNow}>Book Now</button>
         </div>
       </div>
+
+      {showModal && (
+  <div className="modal-overlay">
+    <div className="modal-content">
+      <h2>Enter Event Details</h2>
+      <form>
+        <label>
+          Event Date:
+          <input
+            type="date"
+            name="eventDate"
+            value={eventDetails.eventDate}
+            onChange={handleInputChange}
+            required
+          />
+        </label>
+        <label>
+          Event Time:
+          <input
+            type="time"
+            name="eventTime"
+            value={eventDetails.eventTime}
+            onChange={handleInputChange}
+            required
+          />
+        </label>
+        <label>
+          Event Location:
+          <input
+            type="text"
+            name="eventLocation"
+            value={eventDetails.eventLocation}
+            onChange={handleInputChange}
+            required
+          />
+        </label>
+        <label>
+          Special Instructions:
+          <textarea
+            name="specialInstructions"
+            value={eventDetails.specialInstructions}
+            onChange={handleInputChange}
+          />
+        </label>
+        <div className="modal-buttons">
+          <button type="button" onClick={() => setShowModal(false)}>
+            Cancel
+          </button>
+          <button type="button" onClick={handleSubmit}>
+            Submit
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+)}
     </div>
   );
 };
