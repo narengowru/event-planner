@@ -108,7 +108,7 @@
 }
 
 .modal-content {
-  background-color: white; /* White modal card */
+  background-color: white !important; /* White modal card */
   width: 90%; /* Makes it responsive */
   max-width: 400px; /* Prevents it from becoming too wide */
   padding: 20px;
