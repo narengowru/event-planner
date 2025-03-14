@@ -1,2 +1,6 @@
 /node_modules
-/.env
+
+.env.EMAIL_USER
+.env.EMAIL_PASS
+.env.MONGO_URI
+.env.JWT_SECRET
